@@ -70,9 +70,20 @@ for event in longpool.listen():
         if event.to_me:
             msg = event.text.lower()
             id = event.user_id
-            if msg == "продолжить" or msg == "привет":
-                a = randint(0, 15)
-                send_some_msg(id, "попробуй перевести слово - ")
+            if msg == "привет":
+                send_some_msg(id, "Привет, напиши любое слово, например 'начать'!")
+                break
+            else:
+                send_some_msg(id, "Для старта с ботом, напиши 'привет'")
+
+for event in longpool.listen():
+    if event.type == VkEventType.MESSAGE_NEW:
+        if event.to_me:
+            msg = event.text.lower()
+            id = event.user_id
+            if msg == "продолжить" or "начать":
+                a = randint(0,14)
+                send_some_msg(id,"попробуй перевести слово - ")
                 send_some_msg(id, result[a]['EnglishWord'])
                 for event in longpool.listen():
                     if event.type == VkEventType.MESSAGE_NEW:
@@ -80,12 +91,9 @@ for event in longpool.listen():
                             msg = event.text.lower()
                             id = event.user_id
                             if msg == result1[a]['RussianWord']:
-                                send_some_msg(id, "Молодец!, чтобы продолжить напиши 'продолжить'")
+                                send_some_msg(id, "Молодец!, чтобы продолжить напиши любое слово, например 'продолжить'")
                                 break
                             else:
                                 send_some_msg(id, "Неправильно!")
                                 send_some_msg(id, "чтобы продолжить напиши 'продолжить'")
                                 break
-            else:
-                send_some_msg(id, "Для старта с ботом, напиши 'привет'")
-
